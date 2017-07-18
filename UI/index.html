@@ -53,7 +53,7 @@ var buttonTemplate = '<script id="chat_message_tmpl" type="text/x-jqury-tmpl"> \
 						"isAnonymous": false
 					};
 					$.ajax({
-						url: botOptions.koreAPIUrl + "users/sts",
+						url: "https://jwtgenerator.herokuapp.com/users/sts",
 						type: 'post',
 						data: jsonData,
 						dataType: 'json',
@@ -75,7 +75,7 @@ var buttonTemplate = '<script id="chat_message_tmpl" type="text/x-jqury-tmpl"> \
 
 				var botOptions = {};
 				botOptions.logLevel = 'debug';
-				botOptions.koreAPIUrl = "https://bots.kore.ai/api/";
+				botOptions.koreAPIUrl = "https://jwtgenerator.herokuapp.com/users/sts";
 				//botOptions.bearer = "bearer xyz-------------------";
 				botOptions.speechSocketUrl = 'wss://speech.kore.ai/stream/kore/decode';
 				botOptions.userIdentity = 'userIdentity';// Provide users email id here
