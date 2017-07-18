@@ -1166,7 +1166,7 @@ function koreBotChat() {
                     </div> \
                 </div>\
         </script>';
-        var buttonTemplate = '<script id="chat_message_tmpl" type="text/x-jqury-tmpl"> \
+        /*var buttonTemplate = '<script id="chat_message_tmpl" type="text/x-jqury-tmpl"> \
 			{{if msgData.message}} \
 				<li {{if msgData.type !== "bot_response"}}id="msg_${msgItem.clientMessageId}"{{/if}} class="{{if msgData.type === "bot_response"}}fromOtherUsers{{else}}fromCurrentUser{{/if}} with-icon"> \
 					<div class="buttonTmplContent"> \
@@ -1188,7 +1188,31 @@ function koreBotChat() {
 					</div>\
 				</li> \
 			{{/if}} \
-		</scipt>';
+		</scipt>';*/
+       var buttonTemplate = '<script id="chat_message_tmpl" type="text/x-jqury-tmpl"> \
+            {{if msgData.message}} \
+                <li {{if msgData.type !== "bot_response"}}id="msg_${msgItem.clientMessageId}"{{/if}} class="{{if msgData.type === "bot_response"}}fromOtherUsers{{else}}fromCurrentUser{{/if}} with-icon"> \
+                    <div class="buttonTmplContent"> \
+                        {{if msgData.createdOn}}<div class="extra-info">${helpers.formatDate(msgData.createdOn)}</div>{{/if}} \
+                        {{if msgData.icon}}<div class="profile-photo"> <div class="user-account avtar" style="background-image:url(${msgData.icon})"></div> </div> {{/if}} \
+                        <ul class="buttonTmplContentBox">\
+                            <li class="buttonTmplContentHeading"> \
+                                {{if msgData.type === "bot_response"}} {{html helpers.convertMDtoHTML(msgData.message[0].component.payload.text, "bot")}} {{else}} {{html helpers.convertMDtoHTML(msgData.message[0].component.payload.text, "user")}} {{/if}} \
+                                {{if msgData.message[0].cInfo && msgData.message[0].cInfo.emoji}} \
+                                    <span class="emojione emojione-${msgData.message[0].cInfo.emoji[0].code}">${msgData.message[0].cInfo.emoji[0].title}</span> \
+                                {{/if}} \
+                            </li>\
+                            {{each(key, msgItem) msgData.message[0].component.payload.buttons}} \
+                                <li {{if msgItem.payload}}value="${msgItem.payload}"{{/if}} {{if msgItem.url}}url="${msgItem.url}"{{/if}} {{if msgItem.type === "attachment"}}class="buttonTmplContentChild attachmentBtn"{{else}}class="buttonTmplContentChild"{{/if}} data-value="${msgItem.value}" type="${msgItem.type}">\
+                                    ${msgItem.title}\
+                                </li> \
+                            {{/each}} \
+                        </ul>\
+                    </div>\
+                </li> \
+            {{/if}} \
+        </scipt>';
+
         var quickReplyTemplate = '<script id="chat_message_tmpl" type="text/x-jqury-tmpl"> \
 			{{if msgData.message}} \
 				<li {{if msgData.type !== "bot_response"}}id="msg_${msgItem.clientMessageId}"{{/if}} class="{{if msgData.type === "bot_response"}}fromOtherUsers{{else}}fromCurrentUser{{/if}} with-icon"> \
