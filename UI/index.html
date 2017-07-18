@@ -17,6 +17,32 @@
 		<link href="chatWindow.css" rel="stylesheet"></link>
 		<link href="../libs/emojione.sprites.css" rel="stylesheet"></link>
 		<script type="text/javascript">
+
+
+var buttonTemplate = '<script id="chat_message_tmpl" type="text/x-jqury-tmpl"> \
+			{{if msgData.message}} \
+				<li {{if msgData.type !== "bot_response"}}id="msg_${msgItem.clientMessageId}"{{/if}} class="{{if msgData.type === "bot_response"}}fromOtherUsers{{else}}fromCurrentUser{{/if}} with-icon"> \
+					<div class="buttonTmplContent"> \
+						{{if msgData.createdOn}}<div class="extra-info">${helpers.formatDate(msgData.createdOn)}</div>{{/if}} \
+						{{if msgData.icon}}<div class="profile-photo"> <div class="user-account avtar" style="background-image:url(${msgData.icon})"></div> </div> {{/if}} \
+						<ul class="buttonTmplContentBox">\
+							<li class="buttonTmplContentHeading"> \
+								{{if msgData.type === "bot_response"}} {{html helpers.convertMDtoHTML(msgData.message[0].component.payload.text, "bot")}} {{else}} {{html helpers.convertMDtoHTML(msgData.message[0].component.payload.text, "user")}} {{/if}} \
+								{{if msgData.message[0].cInfo && msgData.message[0].cInfo.emoji}} \
+									<span class="emojione emojione-${msgData.message[0].cInfo.emoji[0].code}">${msgData.message[0].cInfo.emoji[0].title}</span> \
+								{{/if}} \
+							</li>\
+							{{each(key, msgItem) msgData.message[0].component.payload.buttons}} \
+								<li {{if msgItem.payload}}value="${msgItem.payload}"{{/if}} {{if msgItem.url}}url="${msgItem.url}"{{/if}} {{if msgItem.type === "attachment"}}class="buttonTmplContentChild attachmentBtn"{{else}}class="buttonTmplContentChild"{{/if}} data-value="${msgItem.value}" type="${msgItem.type}">\
+									${msgItem.title}\
+								</li> \
+							{{/each}} \
+						</ul>\
+					</div>\
+				</li> \
+			{{/if}} \
+		</scipt>';
+		
 			$(document).on("ready", function () {
 				function assertion(options, callback) {
 					var jsonData = {
@@ -56,8 +82,8 @@
 				botOptions.recorderWorkerPath = '../libs/recorderWorker.js';
 				botOptions.assertionFn = assertion;
 				botOptions.koreAnonymousFn = koreAnonymousFn;
-				botOptions.clientId   = "your clientId"; // secure client-id
-				botOptions.botInfo = {name:"your bot name","_id":"bot_id"}; // bot name is case sensitive
+				botOptions.clientId   = "cs-32890e72-a804-5e6f-b12e-c1e00a917f09"; // secure client-id
+				botOptions.botInfo = {name:"RH Demo Bot","_id":"st-370e085e-c382-5d95-9684-4e5a9571b95a"}; // bot name is case sensitive
 				
 				var chatConfig={
 					botOptions:botOptions,
