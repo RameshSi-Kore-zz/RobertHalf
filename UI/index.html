@@ -23,8 +23,8 @@
 					$(document).on("ready", function () {
 				function assertion(options, callback) {
 					var jsonData = {
-						"clientId": "cs-32890e72-a804-5e6f-b12e-c1e00a917f09",
-						"clientSecret": "3asNmEuTjiuUD6HvGdUzsmXPFdGnuO3L7vAa0jLK4+M=",
+						"clientId": "cs-f94b6a68-e2b4-55aa-b339-0289f9a79ec6",
+						"clientSecret": "ogywmxs+mDHqrcfi+vhEkx1RU6uO5ISTfKeRN3zLPeM=",
 						"identity": "ramesh.silveru@kore.com",
 						"aud": "",
 						"isAnonymous": false
@@ -55,12 +55,12 @@
 				botOptions.koreAPIUrl = "https://bots.kore.ai/api/";
 				//botOptions.bearer = "bearer xyz-------------------";
 				botOptions.speechSocketUrl = 'wss://speech.kore.ai/stream/kore/decode';
-				botOptions.userIdentity = 'userIdentity';// Provide users email id here
+				botOptions.userIdentity = 'ramesh.silveru@korebots.com';// Provide users email id here
 				botOptions.recorderWorkerPath = '../libs/recorderWorker.js';
 				botOptions.assertionFn = assertion;
 				botOptions.koreAnonymousFn = koreAnonymousFn;
-				botOptions.clientId   = "cs-32890e72-a804-5e6f-b12e-c1e00a917f09"; // secure client-id
-				botOptions.botInfo = {name:"RH Demo Bot","_id":"st-370e085e-c382-5d95-9684-4e5a9571b95a"}; // bot name is case sensitive
+				botOptions.clientId   = "cs-f94b6a68-e2b4-55aa-b339-0289f9a79ec6"; // secure client-id
+				botOptions.botInfo = {name:"Guess the number","_id":"st-19ef88aa-4357-58ca-aafe-7c85df8c55b7"}; // bot name is case sensitive
 				
 				var chatConfig={
 					botOptions:botOptions,
@@ -69,6 +69,11 @@
 				};
 				var koreBot = koreBotChat();
 				koreBot.show(chatConfig);
+				koreBot.addListener('provideVal', function (data) {
+					console.log(data.link);
+					data.link;
+				});
+
 				$('.openChatWindow').click(function () {
 					koreBotChat().show(chatConfig);
 				});

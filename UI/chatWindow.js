@@ -327,7 +327,7 @@ function koreBotChat() {
                     for (var x = 0; x < linkArray.length; x++) {
                         var _newLA = document.createElement('div');
                         _newLA.innerHTML = linkArray[x];
-                        $(_newLA).find('a').attr('target', '_blank');
+                        //$(_newLA).find('a').attr('target', '_blank');
                         str = str.replace(linkArray[x], _newLA.innerHTML);
                     }
                 } else {
@@ -728,9 +728,12 @@ function koreBotChat() {
 
         _chatContainer.off('click', 'li a').on('click', 'li a', function (e) {
             e.preventDefault();
+
             var a_link = $(this).attr('href');
             var _trgt = $(this).attr('target');
+            console.log("!!"+_trgt);
             if (_trgt === "_self") {
+                console.log(">>>>");
                 callListener("provideVal", { link: a_link });
                 return;
             }
@@ -738,7 +741,7 @@ function koreBotChat() {
                 me.openPopup(a_link);
             }
             else {
-                var _tempWin = window.open(a_link, "_blank");
+                var _tempWin = window.open(a_link, _trgt);
             }
         });
         _chatContainer.off('click', '.buttonTmplContentBox li,.listTmplContentChild .buyBtn,.viewMoreList .viewMore,.listItemPath').on('click', '.buttonTmplContentBox li,.listTmplContentChild .buyBtn, .viewMoreList .viewMore,.listItemPath', function (e) {
@@ -1041,7 +1044,7 @@ function koreBotChat() {
 
     chatWindow.prototype.formatMessages = function (msgContainer) {
         /*adding target to a tags */
-        $(msgContainer).find('a').attr('target', '_blank');
+        //$(msgContainer).find('a').attr('target', '_blank');
     };
 
     chatWindow.prototype.openPopup = function (link_url) {
